@@ -3,7 +3,6 @@ const path= require("path");
 const bodyParser= require("body-parser");
 const cors= require("cors");
 const mongoose= require("mongoose");
-mongoose.Promise= global.Promise;
 const config= require('./config/database');
 
 // DB Connection
@@ -22,6 +21,19 @@ const app= express();
 // Port Number
 const port= 3000;
 
+// Cors Middleware
+const cors_permission = require('./cors');
+app.use(cors_permission.permission)
+//
+app.use(cors({
+    allowedHeaders: ["Content-Type", "Authorization"]
+}));
+// Activate Body-parser Middleware
+app.use(bodyParser.urlencoded({
+  extended: true
+}));
+
+app.use(bodyParser.json());
 // List Of Routes Location
 const produits= require('./routes/produits') ;
 app.use('/api', produits);
@@ -30,8 +42,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // Activate Cors Module
 app.use(cors());
-// Activate Body-parser Middleware
-app.use(bodyParser.json());
+
 
 // Racine Root
 app.use('/', (req, res)=>{

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-
+import { Product } from '../../classes/product';
+import { ProductService } from '../../services/product.service';
   @Component({
     moduleId: module.id,
     selector: 'app-dashboard',
@@ -9,10 +10,15 @@ import { Router } from '@angular/router';
   })
 
   export class DashboardComponent implements OnInit {
+    product: Product= new Product();
+    products: any[]=[]
+    id;
+    index;
+    constructor(private router: Router, private productService: ProductService){}
 
-    constructor(private router: Router){}
-
-    ngOnInit(){}
+    ngOnInit(){
+    
+    }
 
     // Close  AsideBar
     closeAside(){

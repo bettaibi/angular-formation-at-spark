@@ -1,6 +1,7 @@
 const express= require('express');
 const router= express.Router();
 const Product= require('../models/produit');
+const config = require('../config/database');
 // Get Produits
 router.get('/produits', (req, res, next)=>{
   Product.getAll((err,products) =>{
@@ -15,7 +16,7 @@ router.get('/produits', (req, res, next)=>{
 });
 
 // Create New Produit
-router.post('/produit', (req, res, next)=>{
+router.post('/produit', (req, res) =>{
   let newProduct= new Product({
     name: req.body.name,
     ref: req.body.ref,
@@ -26,7 +27,7 @@ router.post('/produit', (req, res, next)=>{
       res.json({success: false, message: 'Failed to add product'});
     }
     else{
-      res.json({success: true, message:'Product created'});
+      res.json({success: true, message:'Product created', data: product});
     }
   })
 });
@@ -34,17 +35,29 @@ router.post('/produit', (req, res, next)=>{
 // Update produit
 router.put('/produit/:id', (req, res, next)=>{
   var prod = req.body;
-  Product.updateProduct(req.params._id, prod, {}, (err, produit) => {
-    if (err) throw err;
+  Product.updateProduct(req.params.id, prod, {}, (err, produit) => {
+    if (err){
+      console.log(err);
+      res.json({success: false, message: 'Failed to update product'});
+    }
     else {
-      res.json({success: true, message:'Product updated', data: produit});
+      var updatedProduct={
+        _id: req.params.id,
+        name: prod.name,
+        ref: prod.ref,
+        description: prod.description
+      };
+      console.log(produit);
+      res.json({success: true, message:'Product updated', data: updatedProduct});
     }
   });
 });
 
 // Delete Produit
 router.delete('/produit/:id', (req, res, next)=>{
-  Product.deleteProduct(req.params._id, (err, produit) => {
+  var id= req.params.id;
+  console.log(id);
+  Product.deleteProduct(id, (err, produit) => {
     if (err) throw err;
     else {
         res.json({success: true, message:'Product deleted', data: produit});

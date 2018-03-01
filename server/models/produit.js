@@ -35,11 +35,12 @@ module.exports.updateProduct= function(id, prod, options, callback){
    _id: id
  };
  var updateProd = {
+   _id: id,
    name: prod.name,
    ref: prod.ref,
    description: prod.description
  }
- categorie.findOneAndUpdate(req, updateProd, options, callback);
+ Product.findOneAndUpdate(req, updateProd, options, callback);
 }
 // Delete Product
 module.exports.deleteProduct= function(id, callback){

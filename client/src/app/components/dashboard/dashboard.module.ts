@@ -5,6 +5,9 @@ import { CommonModule } from '@angular/common';
 import { DashboardComponent } from './dashboard.component';
 import { DashboardRoutes } from './dashboard.routing';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+//import { HttpModule } from '@angular/http';
+//import { MDBBootstrapModule } from 'angular-bootstrap-md';
+import { ProductService } from '../../services/product.service';
 
 @NgModule({
   imports: [
@@ -12,10 +15,11 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
      RouterModule.forChild(DashboardRoutes),
      FormsModule,
      ReactiveFormsModule
+     //MDBBootstrapModule.forRoot(),
    ],
   declarations: [DashboardComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
-  providers: []
+  providers: [ProductService]
 })
 
 export class DashboardModule {}
