@@ -19,5 +19,80 @@
 <!-- Main Content -->
 <div class="content" id="main">
   <h4>Products List</h4>
+  <div class="row">
+    <div class="col-sm-12 text-right">
+      <button type="button" class="btn btn-secondary waves-light" (click)="createModal.show()">Create </button>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-12">
+      <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Name</th>
+              <th>Ref</th>
+              <th>Description</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row">1</th>
+              <td>Mark</td>
+              <td>Otto</td>
+              <td>@mdo</td>
+              <td>
+                <a class="mr-3"><i class="fa fa-pencil"></i></a>
+                <a ><i class="fa fa-close"></i></a>
+              </td>
+            </tr>
+          </tbody>
+          </table>
+    </div>
+  </div>
 
+</div>
+
+<!-- Create Product Modal  -->
+<div mdbModal #createModal="mdb-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myBasicModalLabel" aria-hidden="true" [config]="{backdrop: false, ignoreBackdropClick: true}">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close pull-right" aria-label="Close" (click)="createModal.hide()">
+                    <span aria-hidden="true">×</span>
+                </button>
+                <h4 class="modal-title w-100" id="myModalLabel">Create Product</h4>
+            </div>
+            <div class="modal-body">
+              <div class="row">
+                <div class="col-sm-12">
+                  <div class="md-form">
+                    <input type="text" placeholder="Name" name="name" [(ngModel)]="product.name"  class="form-control">
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-sm-12">
+                    <div class="md-form">
+                      <input type="text" placeholder="Ref"  name="ref" [(ngModel)]="product.ref" class="form-control">
+                    </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-sm-12">
+                  <div class="md-form">
+                    <input type="text" placeholder="Description" name="description" [(ngModel)]="product.description" class="form-control">
+                  </div>
+                </div>
+              </div>
+
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary waves-light" aria-label="Close" (click)="createModal.hide()" mdbRippleRadius>Close</button>
+                <button type="button" class="btn btn-primary relative waves-light" mdbRippleRadius (click)="createProduct()">Create</button>
+            </div>
+        </div>
+    </div>
 </div>

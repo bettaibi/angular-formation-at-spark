@@ -10,14 +10,14 @@ import { ProductService } from '../../services/product.service';
   })
 
   export class DashboardComponent implements OnInit {
-    product: Product= new Product();
     products: any[]=[]
     id;
     index;
+    product: Product= new Product();
     constructor(private router: Router, private productService: ProductService){}
 
     ngOnInit(){
-    
+
     }
 
     // Close  AsideBar
@@ -30,5 +30,15 @@ import { ProductService } from '../../services/product.service';
     document.getElementById("myAside").style.width = "300px";
     document.getElementById("main").style.marginRight = "300px";
     }
+
+    // Create Product
+    createProduct(){
+      this.productService.createProduct(this.product).subscribe(data=>{
+        console.log(data);
+      });
+    }
+
+
+
 
 }
