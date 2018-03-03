@@ -10,14 +10,14 @@ import { ProductService } from '../../services/product.service';
   })
 
   export class DashboardComponent implements OnInit {
-    products: any[]=[]
+    products: any[]=[];
     id;
     index;
     product: Product= new Product();
     constructor(private router: Router, private productService: ProductService){}
 
     ngOnInit(){
-
+      this.getProducts();
     }
 
     // Close  AsideBar
@@ -35,10 +35,35 @@ import { ProductService } from '../../services/product.service';
     createProduct(){
       this.productService.createProduct(this.product).subscribe(data=>{
         console.log(data);
+        this.products.push(data.data)
+      });
+    }
+    // Get Products
+    getProducts(){
+      this.productService.getProducts().subscribe(data =>{
+        this.products= data.data;
+      })
+    }
+
+    deleteProduct(id, i){
+      this.productService.deleteProduct(id).subscribe(data=>{
+        console.log(data);
+        this.products.splice(i, 1);
       });
     }
 
-
+    // Update Product
+    updateProduct(){
+      this.productService.updateProduct(this.id, this.product).subscribe(data=>{
+        console.log(data);
+        this.products[this.index]= data.data;
+      });
+    }
+    saveProductId(id, index){
+      this.id= id;
+      this.index= index;
+      console.log(this.id);
+    }
 
 
 }

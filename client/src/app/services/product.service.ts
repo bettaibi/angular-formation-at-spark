@@ -30,7 +30,26 @@ export class ProductService {
     .map(res => res.json());
    }
 
+   // Get Products
+   getProducts(){
+   this.createHeaders();
+   return this.http.get(this.domain+'/api/produits', this.options)
+   .map(res => res.json());
+  }
 
+  // Delete Product
+  deleteProduct(id){
+  this.createHeaders();
+  return this.http.delete(this.domain+'/api/produit/'+id, this.options)
+  .map(res => res.json());
+  }
+
+  // Update Product
+  updateProduct(id, produit){
+  this.createHeaders();
+  return this.http.put(this.domain+'/api/produit/'+id, produit, this.options)
+  .map(res => res.json());
+  }
 
 
 }
